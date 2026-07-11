@@ -14,14 +14,15 @@
     noAttempts: 0,
     musicMuted: false,
   };
-
-  var SCREEN_ORDER = [
-    "screen-welcome",
-    "screen-something",
-    "screen-funny",
-    "screen-cake",
-    "screen-wishes",
-    "screen-final",
+var SCREEN_ORDER = [
+  "screen-welcome",
+  "screen-something",
+  "screen-funny",
+  "screen-cake",
+  "screen-wishes",
+  "screen-final",
+  "screen-friend",
+];
   ];
 
   var currentScreenId = "screen-welcome";
@@ -166,129 +167,74 @@
   /* ---------------------------------------------------------
      PAGE 6 — Final surprise: yes / no / dodging button
      --------------------------------------------------------- */
-  var yesBtn = document.getElementById("yesBtn");
-  var noBtn = document.getElementById("noBtn");
-  var finalActions = document.getElementById("finalActions");
-  var finalQuestion = document.getElementById("finalQuestion");
-  var finalHappy = document.getElementById("finalHappy");
-  var finalCard = document.getElementById("finalCard");
-  var cryingOverlay = document.getElementById("cryingOverlay");
+  /* ---------------------------------------------------------
+   PAGE 6 + PAGE 7
+--------------------------------------------------------- */
 
-  noBtn.addEventListener("click", function () {
-    // Only fires on the first attempt (before dodging is enabled)
-    state.noAttempts++;
-    showCryingOverlay();
-  });
+var yesBtn = document.getElementById("yesBtn");
+var noBtn = document.getElementById("noBtn");
 
-  function showCryingOverlay() {
+var friendQuestion = document.getElementById("friendQuestion");
+var friendHappy = document.getElementById("friendHappy");
+
+var friendYesBtn = document.getElementById("friendYesBtn");
+var friendNoBtn = document.getElementById("friendNoBtn");
+
+var cryingOverlay = document.getElementById("cryingOverlay");
+
+/* Surprise Page */
+
+yesBtn.addEventListener("click", function () {
+
+    goToScreen("screen-friend");
+
+});
+
+noBtn.addEventListener("click", function () {
+
     cryingOverlay.hidden = false;
-    window.setTimeout(function () {
-      cryingOverlay.hidden = true;
-      if (state.noAttempts === 1) {
-        enableDodging();
-      }
-    }, 2600);
-  }
 
-  var dodgingEnabled = false;
+    setTimeout(function(){
 
-  function enableDodging() {
-    if (dodgingEnabled) return;
-    dodgingEnabled = true;
-    noBtn.classList.add("dodging");
-    positionNoBtnInline();
-    document.addEventListener("mousemove", handleDodge);
-    document.addEventListener("touchstart", handleDodgeTouch, { passive: true });
-  }
+        cryingOverlay.hidden = true;
 
-  function positionNoBtnInline() {
-    var rect = noBtn.getBoundingClientRect();
-    noBtn.style.left = rect.left + "px";
-    noBtn.style.top = rect.top + "px";
-    noBtn.style.margin = "0";
-  }
+        goToScreen("screen-friend");
 
-  function handleDodge(e) {
-    if (!dodgingEnabled || currentScreenId !== "screen-final") return;
-    var rect = noBtn.getBoundingClientRect();
-    var btnCenterX = rect.left + rect.width / 2;
-    var btnCenterY = rect.top + rect.height / 2;
-    var dx = btnCenterX - e.clientX;
-    var dy = btnCenterY - e.clientY;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-    var threshold = 140;
+    },2500);
 
-    if (dist < threshold) {
-      moveNoBtnAwayFrom(e.clientX, e.clientY, dx, dy, dist);
-    }
-  }
+});
 
-  function handleDodgeTouch(e) {
-    if (!dodgingEnabled || currentScreenId !== "screen-final") return;
-    var touch = e.touches[0];
-    if (!touch) return;
-    var rect = noBtn.getBoundingClientRect();
-    var btnCenterX = rect.left + rect.width / 2;
-    var btnCenterY = rect.top + rect.height / 2;
-    var dx = btnCenterX - touch.clientX;
-    var dy = btnCenterY - touch.clientY;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-    moveNoBtnAwayFrom(touch.clientX, touch.clientY, dx, dy, dist);
-  }
 
-  // Moves the button in the direction away from the cursor (deterministic
-  // repulsion), with a small random jitter so repeated dodges feel lively,
-  // then clamps the result inside the viewport.
-  function moveNoBtnAwayFrom(cursorX, cursorY, dx, dy, dist) {
-    var margin = 20;
-    var btnWidth = noBtn.offsetWidth || 110;
-    var btnHeight = noBtn.offsetHeight || 50;
-    var maxX = window.innerWidth - btnWidth - margin;
-    var maxY = window.innerHeight - btnHeight - margin;
+/* Friend Page */
 
-    var normX, normY;
-    if (dist > 0.001) {
-      normX = dx / dist;
-      normY = dy / dist;
-    } else {
-      var randomAngle = Math.random() * Math.PI * 2;
-      normX = Math.cos(randomAngle);
-      normY = Math.sin(randomAngle);
-    }
+friendYesBtn.addEventListener("click",function(){
 
-    var jitterAngle = (Math.random() - 0.5) * (Math.PI / 3); // +/- 30 degrees
-    var cos = Math.cos(jitterAngle);
-    var sin = Math.sin(jitterAngle);
-    var jitteredX = normX * cos - normY * sin;
-    var jitteredY = normX * sin + normY * cos;
+    friendQuestion.style.display="none";
 
-    var travel = 180 + Math.random() * 90;
-    var rect = noBtn.getBoundingClientRect();
-    var newX = rect.left + jitteredX * travel;
-    var newY = rect.top + jitteredY * travel;
+    friendHappy.hidden=false;
 
-    newX = Math.min(Math.max(newX, margin), Math.max(margin, maxX));
-    newY = Math.min(Math.max(newY, margin), Math.max(margin, maxY));
+    startCelebration({
+        duration:7000,
+        withFireworks:true
+    });
 
-    noBtn.style.left = newX + "px";
-    noBtn.style.top = newY + "px";
-  }
-
-  yesBtn.addEventListener("click", function () {
-    dodgingEnabled = false;
-    document.removeEventListener("mousemove", handleDodge);
-    document.removeEventListener("touchstart", handleDodgeTouch);
-
-    finalQuestion.style.display = "none";
-    finalHappy.hidden = false;
-    startCelebration({ duration: 7000, withFireworks: true });
     playMusic();
 
-    window.setTimeout(function () {
-      finalCard.classList.add("fading-out");
-    }, 5200);
-  });
+});
 
+friendNoBtn.addEventListener("click",function(){
+
+    cryingOverlay.hidden=false;
+
+    setTimeout(function(){
+
+        cryingOverlay.hidden=true;
+
+        window.close();
+
+    },2500);
+
+});
   /* ---------------------------------------------------------
      Music
      --------------------------------------------------------- */
