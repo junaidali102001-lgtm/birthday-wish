@@ -23,7 +23,7 @@ var SCREEN_ORDER = [
   "screen-final",
   "screen-friend",
 ];
-  ];
+
 
   var currentScreenId = "screen-welcome";
 
