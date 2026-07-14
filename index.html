@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Little Birthday Surprise ❤️</title>
+<meta name="description" content="A premium, interactive birthday surprise website." />
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Decorative ambient background -->
+  <div class="bg-scene" aria-hidden="true">
+    <span class="blob blob--1"></span>
+    <span class="blob blob--2"></span>
+    <span class="blob blob--3"></span>
+  </div>
+
+  <!-- Sound toggle -->
+  <button id="soundToggle" class="sound-toggle" type="button" aria-label="Toggle music" hidden>
+    <span class="sound-toggle__icon">♪</span>
+  </button>
+
+  <!-- Progress dots -->
+  <div class="progress-dots" id="progressDots" aria-hidden="true">
+    <span class="dot" data-dot="1"></span>
+    <span class="dot" data-dot="2"></span>
+    <span class="dot" data-dot="3"></span>
+    <span class="dot" data-dot="4"></span>
+    <span class="dot" data-dot="5"></span>
+    <span class="dot" data-dot="6"></span>
+  </div>
+
+  <main id="app">
+
+    <!-- PAGE 1 — WELCOME -->
+    <section class="screen active" id="screen-welcome" data-screen="1">
+      <div class="glass-card welcome-card">
+        <div class="cat-wrap">
+          <div class="cat cat--waving">
+            <div class="cat-ear cat-ear--l"></div>
+            <div class="cat-ear cat-ear--r"></div>
+            <div class="cat-face">
+              <div class="cat-eye cat-eye--l"></div>
+              <div class="cat-eye cat-eye--r"></div>
+              <div class="cat-blush cat-blush--l"></div>
+              <div class="cat-blush cat-blush--r"></div>
+              <div class="cat-mouth"></div>
+              <div class="cat-whiskers cat-whiskers--l"></div>
+              <div class="cat-whiskers cat-whiskers--r"></div>
+            </div>
+            <div class="cat-paw"></div>
+          </div>
+          <div class="speech-bubble">Hi! <span class="wave-hand">👋</span></div>
+        </div>
+
+        <h1 class="title" id="nameLabel">Enter Your Name</h1>
+        <p class="subtitle">Someone made a little something for you...</p>
+
+        <form id="nameForm" class="name-form" autocomplete="off">
+          <label class="sr-only" for="nameInput">Enter your name</label>
+          <input
+            type="text"
+            id="nameInput"
+            class="name-input"
+            placeholder="Your beautiful name"
+            maxlength="24"
+            aria-labelledby="nameLabel"
+            required
+          />
+          <button type="submit" class="btn btn--primary">Start Surprise <span aria-hidden="true">❤️</span></button>
+        </form>
+      </div>
+    </section>
+
+    <!-- PAGE 2 — I MADE SOMETHING FOR YOU -->
+    <section class="screen" id="screen-something" data-screen="2">
+      <div class="glass-card center-card">
+        <h1 class="title">I Made Something For You <span aria-hidden="true">❤️</span></h1>
+
+        <div class="cat-wrap cat-wrap--floaty">
+          <div class="floating-hearts" aria-hidden="true">
+            <span>💗</span><span>💕</span><span>💖</span><span>💓</span><span>💞</span>
+          </div>
+          <div class="cat cat--blink">
+            <div class="cat-ear cat-ear--l"></div>
+            <div class="cat-ear cat-ear--r"></div>
+            <div class="cat-face">
+              <div class="cat-eye cat-eye--l"></div>
+              <div class="cat-eye cat-eye--r"></div>
+              <div class="cat-blush cat-blush--l"></div>
+              <div class="cat-blush cat-blush--r"></div>
+              <div class="cat-mouth cat-mouth--smile"></div>
+              <div class="cat-whiskers cat-whiskers--l"></div>
+              <div class="cat-whiskers cat-whiskers--r"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn--primary" data-next="screen-funny">Next <span aria-hidden="true">➜</span></button>
+      </div>
+    </section>
+
+    <!-- PAGE 3 — FUNNY CAT -->
+    <section class="screen" id="screen-funny" data-screen="3">
+      <div class="glass-card center-card">
+        <div class="cat-wrap">
+          <div class="cat cat--funny">
+            <div class="cat-ear cat-ear--l"></div>
+            <div class="cat-ear cat-ear--r"></div>
+            <div class="cat-face">
+              <div class="cat-eye cat-eye--l cat-eye--wide"></div>
+              <div class="cat-eye cat-eye--r cat-eye--wide"></div>
+              <div class="cat-blush cat-blush--l"></div>
+              <div class="cat-blush cat-blush--r"></div>
+              <div class="cat-mouth cat-mouth--o"></div>
+              <div class="cat-whiskers cat-whiskers--l"></div>
+              <div class="cat-whiskers cat-whiskers--r"></div>
+            </div>
+            <div class="sweat-drop">💧</div>
+            <div class="tiny-cake">🎂</div>
+          </div>
+        </div>
+
+        <p class="funny-text">Oops, I find you cute. 🥺❤️! <span aria-hidden="true">🥺🎂</span></p>
+
+        <button type="button" class="btn btn--secondary" data-next="screen-cake">Seriously? <span aria-hidden="true">😂</span></button>
+      </div>
+    </section>
+
+    <!-- PAGE 4 — BIRTHDAY CAKE -->
+    <section class="screen" id="screen-cake" data-screen="4">
+      <div class="glass-card cake-card">
+        <h1 class="title" id="cakeHeading">Happy Birthday, <span id="nameSlotCake">Friend</span> <span aria-hidden="true">❤️</span></h1>
+
+        <div class="cake-scene">
+          <div class="cake-glow" id="cakeGlow" aria-hidden="true"></div>
+          <div class="cake" id="cake">
+            <div class="candles" id="candles">
+              <div class="candle">
+                <div class="flame"></div>
+                <div class="smoke"><span></span><span></span><span></span></div>
+              </div>
+              <div class="candle">
+                <div class="flame"></div>
+                <div class="smoke"><span></span><span></span><span></span></div>
+              </div>
+              <div class="candle">
+                <div class="flame"></div>
+                <div class="smoke"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <div class="cake-half cake-half--left">
+              <div class="cake-layer cake-layer--top"></div>
+              <div class="cake-drip"></div>
+              <div class="cake-layer cake-layer--bottom"></div>
+              <div class="cake-sprinkle"></div>
+              <div class="cake-sprinkle"></div>
+              <div class="cake-sprinkle"></div>
+            </div>
+            <div class="cake-half cake-half--right">
+              <div class="cake-layer cake-layer--top"></div>
+              <div class="cake-drip"></div>
+              <div class="cake-layer cake-layer--bottom"></div>
+              <div class="cake-sprinkle"></div>
+              <div class="cake-sprinkle"></div>
+              <div class="cake-sprinkle"></div>
+            </div>
+            <div class="cake-plate"></div>
+          </div>
+        </div>
+
+        <div class="cake-actions">
+          <button type="button" class="btn btn--primary" id="blowBtn">Blow Out The Candles <span aria-hidden="true">🕯️</span></button>
+          <button type="button" class="btn btn--primary btn--hidden" id="cutBtn">Cut The Cake <span aria-hidden="true">🍰</span></button>
+        </div>
+
+        <div class="big-birthday-text" id="bigBirthdayText">
+          Happy Birthday, <span id="nameSlotBig">Friend</span> <span aria-hidden="true">❤️</span>
+        </div>
+
+        <button type="button" class="btn btn--ghost btn--hidden" id="continueFromCake" data-next="screen-wishes">Continue <span aria-hidden="true">➜</span></button>
+      </div>
+    </section>
+
+    <!-- PAGE 5 — GOOD WISHES -->
+    <section class="screen" id="screen-wishes" data-screen="5">
+      <div class="glass-card wishes-card">
+        <h1 class="title">Good Wishes <span aria-hidden="true">💖</span></h1>
+        <p class="typing-text" id="typingText" aria-live="polite"></p>
+        <button type="button" class="btn btn--primary btn--hidden" id="wishesNextBtn" data-next="screen-final">Next <span aria-hidden="true">➜</span></button>
+      </div>
+    </section>
+
+    <!-- PAGE 6 — FINAL SURPRISE -->
+    
+    <section class="screen" id="screen-final" data-screen="6">
+      <div class="glass-card final-card" id="finalCard">
+
+        <div class="final-question" id="finalQuestion">
+          <h1 class="title">
+            So... Did You Like My Surprise? 🥹❤️
+          </h1>
+
+          <div class="final-actions" id="finalActions">
+            <button type="button" class="btn btn--primary" id="yesBtn">
+              Yes ❤️
+            </button>
+
+            <button type="button" class="btn btn--outline" id="noBtn">
+              No 💔
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="screen" id="screen-friend" data-screen="7">
+
+    <div class="glass-card final-card" id="friendCard">
+
+    <div class="final-question" id="friendQuestion">
+
+    <h1 class="title">
+    Will You Be My Friend? 🥹💖
+    </h1>
+
+    <p style="margin-top:20px;font-size:18px;line-height:1.7">
+
+    I think you're really cute. ❤️
+
+    If you become my friend,
+    it would honestly make me very happy.
+
+    😊💖
+
+    </p>
+
+    <div class="final-actions">
+
+    <button
+    type="button"
+    class="btn btn--primary"
+    id="friendYesBtn">
+
+    Yes 💖
+
+    </button>
+
+    <button
+    type="button"
+    class="btn btn--outline"
+    id="friendNoBtn">
+
+    No 💔
+
+    </button>
+
+    </div>
+
+    </div>
+
+    <div
+    class="final-happy"
+    id="friendHappy"
+    hidden>
+
+    <div class="cat-wrap cat-wrap--floaty">
+
+    <div class="floating-hearts">
+
+    <span>💗</span>
+    <span>💕</span>
+    <span>💖</span>
+    <span>💞</span>
+
+    </div>
+
+    <div class="cat cat--happy">
+
+    <div class="cat-ear cat-ear--l"></div>
+    <div class="cat-ear cat-ear--r"></div>
+
+    <div class="cat-face">
+
+    <div class="cat-eye cat-eye--star">✦</div>
+    <div class="cat-eye cat-eye--star">✦</div>
+
+    <div class="cat-blush cat-blush--l"></div>
+    <div class="cat-blush cat-blush--r"></div>
+
+    <div class="cat-mouth cat-mouth--smile"></div>
+
+    <div class="cat-whiskers cat-whiskers--l"></div>
+    <div class="cat-whiskers cat-whiskers--r"></div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <p class="happy-line">
+
+    Yay!! 🥹❤️
+
+    </p>
+
+    <p class="thank-you-line">
+
+    Thank You For Being My Friend ❤️
+
+    </p>
+
+    <p class="the-end-line">
+
+    ✨ The End ✨
+
+    </p>
+
+    </div>
+
+    </div>
+
+    </section>
+
+    <!-- PAGE 8 — LEAVE ME A MESSAGE -->
+    <section class="screen" id="screen-message" data-screen="8">
+      <div class="glass-card wishes-card" id="messageCard">
+        <h1 class="title">💌 Leave Me A Message</h1>
+        <p class="subtitle">I'd love to know what you think about me.</p>
+
+        <textarea
+          id="messageInput"
+          class="name-input"
+          style="width:100%;min-height:160px;resize:vertical;margin-top:16px;padding:14px;font-family:inherit;font-size:16px;line-height:1.5;"
+          placeholder="Write anything you want...
+You can give a compliment, feedback, advice, or just say something nice 😊"
+        ></textarea>
+
+        <button type="button" class="btn btn--primary" id="sendMessageBtn" style="margin-top:20px;">
+          Send <span aria-hidden="true">❤️</span>
+        </button>
+      </div>
+    </section>
+   
+  </main>
+
+  <!-- Fullscreen crying overlay -->
+  <div class="crying-overlay" id="cryingOverlay" hidden>
+    <div class="cat cat--crying">
+      <div class="cat-ear cat-ear--l"></div>
+      <div class="cat-ear cat-ear--r"></div>
+      <div class="cat-face">
+        <div class="cat-eye cat-eye--sad cat-eye--l"></div>
+        <div class="cat-eye cat-eye--sad cat-eye--r"></div>
+        <div class="tear tear--l"></div>
+        <div class="tear tear--r"></div>
+        <div class="cat-mouth cat-mouth--sad"></div>
+        <div class="cat-whiskers cat-whiskers--l"></div>
+        <div class="cat-whiskers cat-whiskers--r"></div>
+      </div>
+    </div>
+    <p class="crying-text">Aww... You broke my little heart. <span aria-hidden="true">🥺💔</span></p>
+  </div>
+
+  <!-- Particle / celebration overlay -->
+  <div class="celebration-overlay" id="celebrationOverlay" aria-hidden="true">
+    <canvas id="fireworksCanvas"></canvas>
+    <div class="particle-layer" id="particleLayer"></div>
+  </div>
+
+  <audio id="bgMusic" src="music/happy-birthday-theme.mp3" loop preload="auto"></audio>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      serverTimestamp,
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "...",
+      authDomain: "...",
+      projectId: "birthday-surprise-e8618",
+      storageBucket: "...",
+      messagingSenderId: "...",
+      appId: "..."
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+
+    window.saveResponse = function (name, question, answer) {
+      addDoc(collection(db, "responses"), {
+        name: name,
+        question: question,
+        answer: answer,
+        timestamp: serverTimestamp(),
+      }).catch(function (error) {
+        console.error(error);
+      });
+    };
+
+    window.saveFinalMessage = function (name, surpriseAnswer, friendAnswer, comment) {
+      return addDoc(collection(db, "responses"), {
+        name: name,
+        surpriseAnswer: surpriseAnswer,
+        friendAnswer: friendAnswer,
+        comment: comment,
+        timestamp: serverTimestamp(),
+      }).catch(function (error) {
+        console.error(error);
+      });
+    };
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
