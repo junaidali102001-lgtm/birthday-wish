@@ -190,14 +190,6 @@ yesBtn.addEventListener("click", function () {
 
     state.surpriseAnswer = "Yes";
 
-    try {
-        if (typeof window.saveResponse === "function") {
-            window.saveResponse(state.name, "Do you like my surprise?", "Yes");
-        }
-    } catch (error) {
-        console.error(error);
-    }
-
     goToScreen("screen-friend");
 
 });
@@ -205,14 +197,6 @@ yesBtn.addEventListener("click", function () {
 noBtn.addEventListener("click", function () {
 
     state.surpriseAnswer = "No";
-
-    try {
-        if (typeof window.saveResponse === "function") {
-            window.saveResponse(state.name, "Do you like my surprise?", "No");
-        }
-    } catch (error) {
-        console.error(error);
-    }
 
     cryingOverlay.hidden = false;
 
@@ -233,27 +217,13 @@ friendYesBtn.addEventListener("click",function(){
 
     state.friendAnswer = "Yes";
 
-    try {
-        if (typeof window.saveResponse === "function") {
-            window.saveResponse(state.name, "Will you be my friend?", "Yes");
-        }
-    } catch (error) {
-        console.error(error);
-    }
-
     goToScreen("screen-message");
 
 });
 
 friendNoBtn.addEventListener("click",function(){
 
-    try {
-        if (typeof window.saveResponse === "function") {
-            window.saveResponse(state.name, "Will you be my friend?", "No");
-        }
-    } catch (error) {
-        console.error(error);
-    }
+    state.friendAnswer = "No";
 
     cryingOverlay.hidden=false;
 
@@ -261,7 +231,7 @@ friendNoBtn.addEventListener("click",function(){
 
         cryingOverlay.hidden=true;
 
-        window.close();
+        goToScreen("screen-message");
 
     },2500);
 
